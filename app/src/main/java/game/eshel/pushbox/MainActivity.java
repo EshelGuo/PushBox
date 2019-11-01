@@ -15,6 +15,9 @@
  */
 package game.eshel.pushbox;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 	private TextView mTitle;
 	private TextView mAuthor;
 	private TextView select_level;
-	private int mLevel = 1;
+	private int mLevel = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,12 +105,14 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void newGame() {
-		Game game = mMainGame.newGame(mLevel);
+		final Game game = mMainGame.newGame(mLevel);
 		game.setWinListener(new Game.WinListener() {
 			@Override
 			public void win() {
+				final String result = game.getHistory().toString();
 				new AlertDialog.Builder(MainActivity.this)
 						.setTitle("☺ 恭喜, 你赢了!!")
+						.setMessage(result)
 						.setCancelable(false)
 						.setPositiveButton("下一关", new DialogInterface.OnClickListener() {
 							@Override
@@ -121,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
 								newGame();
 							}
 						})
-						.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+						.setNegativeButton("复制结果", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
+								copy(result);
 								dialog.dismiss();
 							}
 						})
@@ -139,6 +145,28 @@ public class MainActivity extends AppCompatActivity {
 				mStep.setText("步数: " + step);
 			}
 		});
+	}
+
+	/**
+	 * 复制内容到剪切板
+	 *
+	 * @param copyStr
+	 * @return
+	 */
+	private boolean copy(String copyStr) {
+		try {
+			//获取剪贴板管理器
+			ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+			if(cm == null)
+				return false;
+			// 创建普通字符型ClipData
+			ClipData mClipData = ClipData.newPlainText("Label", copyStr);
+			// 将ClipData内容放到系统剪贴板里。
+			cm.setPrimaryClip(mClipData);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	private class ContorlListener implements View.OnClickListener {

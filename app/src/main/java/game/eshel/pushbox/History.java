@@ -16,6 +16,8 @@
 
 package game.eshel.pushbox;
 
+import android.support.annotation.NonNull;
+
 /**
  * <br>createBy guoshiwen
  * <br>createTime: 2019/10/30 20:52
@@ -48,8 +50,8 @@ public class History {
 		return step;
 	}
 
-	public void saveAfter(Step step){
-		step.after();
+	public void saveAfter(Step step, char type){
+		step.after(type);
 	}
 
 	// 回退
@@ -99,6 +101,20 @@ public class History {
 
 	public int getSteps(){
 		return size;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		if(firstStep == null)
+			return "";
+		StringBuilder sb = new StringBuilder();
+		Step step = firstStep;
+		while (step != null){
+			sb.append(step.getType());
+			step = step.next;
+		}
+		return sb.toString();
 	}
 
 	public interface StepChangeListener{

@@ -22,6 +22,12 @@ package game.eshel.pushbox;
  * <br>desc: TODO
  */
 public class Step {
+
+	public static final char LEFT = 'L';
+	public static final char UP = 'U';
+	public static final char RRIGHT = 'R';
+	public static final char DOWN = 'D';
+
 	private Grid boy, box;
 
 	private int boyX;
@@ -39,6 +45,8 @@ public class Step {
 	Step last;
 	Step next;
 
+	private char type;
+
 	public Step(Grid boy) {
 		this.boy = boy;
 		boyX = boy.getX();
@@ -52,7 +60,8 @@ public class Step {
 		boxY = box.getY();
 	}
 
-	public void after(){
+	public void after(char type){
+		this.type = type;
 		if(boy != null){
 			boyXAfter = boy.getX();
 			boyYAfter = boy.getY();
@@ -92,5 +101,9 @@ public class Step {
 			box.move(boxXAfter, boxYAfter);
 		}
 		return isSuccess;
+	}
+
+	public char getType() {
+		return type;
 	}
 }

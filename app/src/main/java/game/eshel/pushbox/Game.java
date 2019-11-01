@@ -26,6 +26,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.eshel.pushbox.Step.DOWN;
+import static game.eshel.pushbox.Step.LEFT;
+import static game.eshel.pushbox.Step.RRIGHT;
+import static game.eshel.pushbox.Step.UP;
+
 /**
  * <br>createBy guoshiwen
  * <br>createTime: 2019/10/30 18:32
@@ -185,14 +190,14 @@ public class Game {
 		if(next == null){
 			Step step = mHistory.saveBefore(boy);
 			boy.up();
-			mHistory.saveAfter(step);
+			mHistory.saveAfter(step, UP);
 		}else if(next.getType() == Type.BOX){
 			Grid boxNext = location.getGridIgnoreGoal(this, next.getX(), next.getUp());
 			if(boxNext == null){
 				Step step = mHistory.saveBefore(boy, next);
 				boy.up();
 				next.up();
-				mHistory.saveAfter(step);
+				mHistory.saveAfter(step, UP);
 			}
 		}
 		checkWin();
@@ -203,14 +208,14 @@ public class Game {
 		if(next == null){
 			Step step = mHistory.saveBefore(boy);
 			boy.left();
-			mHistory.saveAfter(step);
+			mHistory.saveAfter(step, LEFT);
 		}else if(next.getType() == Type.BOX){
 			Grid boxNext = location.getGridIgnoreGoal(this, next.getLeft(), next.getY());
 			if(boxNext == null){
 				Step step = mHistory.saveBefore(boy, next);
 				boy.left();
 				next.left();
-				mHistory.saveAfter(step);
+				mHistory.saveAfter(step, LEFT);
 			}
 		}
 		checkWin();
@@ -221,14 +226,14 @@ public class Game {
 		if(next == null){
 			Step step = mHistory.saveBefore(boy);
 			boy.right();
-			mHistory.saveAfter(step);
+			mHistory.saveAfter(step, RRIGHT);
 		}else if(next.getType() == Type.BOX){
 			Grid boxNext = location.getGridIgnoreGoal(this, next.getRight(), next.getY());
 			if(boxNext == null){
 				Step step = mHistory.saveBefore(boy, next);
 				boy.right();
 				next.right();
-				mHistory.saveAfter(step);
+				mHistory.saveAfter(step, RRIGHT);
 			}
 		}
 		checkWin();
@@ -239,17 +244,21 @@ public class Game {
 		if(next == null){
 			Step step = mHistory.saveBefore(boy);
 			boy.down();
-			mHistory.saveAfter(step);
+			mHistory.saveAfter(step, DOWN);
 		}else if(next.getType() == Type.BOX){
 			Grid boxNext = location.getGridIgnoreGoal(this, next.getX(), next.getDown());
 			if(boxNext == null){
 				Step step = mHistory.saveBefore(boy, next);
 				boy.down();
 				next.down();
-				mHistory.saveAfter(step);
+				mHistory.saveAfter(step, DOWN);
 			}
 		}
 		checkWin();
+	}
+
+	public History getHistory() {
+		return mHistory;
 	}
 
 	public void backward(){
