@@ -58,7 +58,17 @@ public class MainGameView extends View implements Game.WinListener {
 		setBackgroundColor(Color.BLACK);
 		mStyle = new AndroidStyle();
 		mLocation = new Location();
-		mGridDraw = new DrawImpl(context, mStyle, mLocation);
+		mGridDraw = new DrawImpl(context, mLocation);
+	}
+
+	public void setStyle(Style style){
+		mStyle = style;
+		if(mStyle.getFloorResId() != 0) {
+			setBackgroundResource(mStyle.getFloorResId());
+		} else {
+			setBackgroundColor(Color.BLACK);
+		}
+		invalidate();
 	}
 
 	public Game newGame(int level) {
@@ -128,8 +138,15 @@ public class MainGameView extends View implements Game.WinListener {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		mGridDraw.update(canvas, mStyle);
+		mGridDraw.update(canvas);
+		drawFloor(canvas);
+		if(mGame == null)
+			return;
 		mGame.draw(mGridDraw);
+	}
+
+	private void drawFloor(Canvas canvas) {
+//		if()
 	}
 
 	@Override
@@ -151,25 +168,18 @@ public class MainGameView extends View implements Game.WinListener {
 				.show();
 	}
 
-	private static class DrawImpl implements Action<Grid> {
+	private class DrawImpl implements Action<Grid> {
 		private Canvas mCanvas;
-		private Style mStyle;
 		private Location mLocation;
 		private Context mContext;
 		private Paint mPaint;
-
-		private void update(Canvas canvas, Style style) {
-			this.mCanvas = canvas;
-			mStyle = style;
-		}
 
 		private void update(Canvas canvas) {
 			this.mCanvas = canvas;
 		}
 
-		private DrawImpl(Context context, Style style, Location location) {
+		private DrawImpl(Context context, Location location) {
 			mContext = context;
-			mStyle = style;
 			mLocation = location;
 			mPaint = new Paint();
 			mPaint.setAntiAlias(true);

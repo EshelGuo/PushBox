@@ -57,4 +57,8 @@ public abstract class Style {
 	public Bitmap getFloor(Context context){
 		return Resource.getResource(context, floorResId);
 	}
+
+	public int getFloorResId() {
+		return floorResId;
+	}
 }

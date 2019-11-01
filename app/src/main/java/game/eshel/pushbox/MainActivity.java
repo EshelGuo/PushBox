@@ -27,6 +27,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import game.eshel.pushbox.style.ICStyle;
+
 public class MainActivity extends AppCompatActivity {
 
 	private MainGameView mMainGame;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 		mContorlRight.setOnClickListener(contorlListener);
 		mContorlDown.setOnClickListener(contorlListener);
 
-
+		mMainGame.setStyle(new ICStyle());
 		newGame();
 	}
 
