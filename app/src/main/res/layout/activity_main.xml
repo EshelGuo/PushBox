@@ -12,44 +12,48 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <RelativeLayout
+    <FrameLayout
         android:layout_below="@id/main_game"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/contorl_up"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/contorl_up"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/contorl_left"
-            android:layout_toLeftOf="@id/contorl_up"
-            android:layout_below="@id/contorl_up"
-            android:src="@drawable/ic_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/contorl_up" />
+            <ImageView
+                android:id="@+id/contorl_left"
+                android:layout_toLeftOf="@id/contorl_up"
+                android:layout_below="@id/contorl_up"
+                android:src="@drawable/ic_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/contorl_up" />
 
-        <ImageView
-            android:id="@+id/contorl_right"
-            android:layout_below="@id/contorl_up"
-            android:layout_toRightOf="@id/contorl_up"
-            android:src="@drawable/ic_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/contorl_up" />
-        <ImageView
-            android:id="@+id/contorl_down"
-            android:layout_below="@id/contorl_left"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/contorl_right"
+                android:layout_below="@id/contorl_up"
+                android:layout_toRightOf="@id/contorl_up"
+                android:src="@drawable/ic_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/contorl_up" />
+            <ImageView
+                android:id="@+id/contorl_down"
+                android:layout_below="@id/contorl_left"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </FrameLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -62,11 +66,6 @@
         <Button
             android:id="@+id/forward"
             android:text="前进"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/select_level"
-            android:text="选关"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -99,5 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
+    <Button
+        android:id="@+id/select_level"
+        android:layout_alignParentBottom="true"
+        android:text="选关"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
